@@ -1,0 +1,40 @@
+<header>
+  <h1 class="tw-text-4xl tw-text-gray-600">
+    <span class="tw-text-blue-400">Tic</span> -
+    <span class="tw-text-pink-400">Tac</span> -
+    <span class="tw-text-red-400">Toe</span>
+  </h1>
+  <div class="tw-text-2xl tw-text-white">
+    Player turn:
+    <span
+      class="tw-text-emerald-500"
+      *ngIf="gameService.currentPlayerTurn === 'X'"
+      >X</span
+    >
+    <span class="tw-text-red-500" *ngIf="gameService.currentPlayerTurn === 'O'"
+      >O</span
+    >
+  </div>
+</header>
+<div class="board">
+  <div
+    class="cell"
+    *ngFor="let cell of gameService.cells; let i = index"
+    (click)="gameService.handleMove(i)"
+  >
+    <span class="tw-text-white"> {{ cell }}</span>
+  </div>
+</div>
+<div class="controls">
+  <p-button
+    label="Restart Game"
+    [disabled]="!gameService.isGameOver"
+    (click)="gameService.restart()"
+  ></p-button>
+  <div class="winner-text" *ngIf="winner">
+    <h2 class="tw-text-white" *ngIf="winner !== 'tie'">
+      Winner: <span class="tw-text-emerald-500">{{ winner }} 🎉🎉</span>
+    </h2>
+    <h2 class="tw-text-red-500" *ngIf="winner === 'tie'">Tie! 🧐</h2>
+  </div>
+</div>
